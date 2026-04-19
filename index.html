@@ -1,26 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cracks For All!</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #0b0b0f;
+      color: #fff;
+    }
+
+    header {
+      padding: 20px 40px;
+      font-size: 24px;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 20px;
+      padding: 20px 40px;
+    }
+
+    .card {
+      background: linear-gradient(145deg, #15151c, #0e0e13);
+      border-radius: 14px;
+      overflow: hidden;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+      position: relative;
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 25px rgba(120, 120, 255, 0.35);
+    }
+
+    .card-content {
+      padding: 15px;
+    }
+
+    .title {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+
+    .desc {
+      font-size: 13px;
+      opacity: 0.8;
+      margin-bottom: 15px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 10px 14px;
+      background: #3b3bff;
+      color: white;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 13px;
+      transition: background 0.2s;
+    }
+
+    .btn:hover {
+      background: #5a5aff;
+    }
+
+    /* subtle glow overlay */
+    .card::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(120,120,255,0.08), transparent 60%);
+      transform: rotate(25deg);
+      pointer-events: none;
+    }
+  </style>
+</head>
+
 <body>
-  <h1>Cracked Games For All</h1>
 
-  <!-- 👇 THIS is where Step 3 goes -->
-  <div id="games"></div>
+<header>Game Cracks For All!</header>
 
-  <script>
-    fetch('/games.json')
-      .then(res => res.json())
-      .then(games => {
-        const container = document.getElementById('games');
+<div class="grid" id="games"></div>
 
-        games.forEach(game => {
-          container.innerHTML += `
-            <div>
-              <h2>${game.name}</h2>
-              <p>${game.description}</p>
-              <a href="${game.download}" target="_blank">
-                Download
-              </a>
-            </div>
-          `;
-        });
-      });
-  </script>
+<script>
+fetch('/games.json')
+  .then(res => res.json())
+  .then(games => {
+    const container = document.getElementById('games');
+
+    games.forEach(game => {
+      const card = document.createElement('div');
+      card.className = 'card';
+
+      card.innerHTML = `
+        <div class="card-content">
+          <div class="title">${game.name}</div>
+          <div class="desc">${game.description}</div>
+          <a class="btn" href="${game.download}" target="_blank">
+            Download
+          </a>
+        </div>
+      `;
+
+      container.appendChild(card);
+    });
+  });
+</script>
+
 </body>
+</html>
