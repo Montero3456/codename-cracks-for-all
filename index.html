@@ -1,0 +1,26 @@
+<body>
+  <h1>Cracked Games For All</h1>
+
+  <!-- 👇 THIS is where Step 3 goes -->
+  <div id="games"></div>
+
+  <script>
+    fetch('/games.json')
+      .then(res => res.json())
+      .then(games => {
+        const container = document.getElementById('games');
+
+        games.forEach(game => {
+          container.innerHTML += `
+            <div>
+              <h2>${game.name}</h2>
+              <p>${game.description}</p>
+              <a href="${game.download}" target="_blank">
+                Download
+              </a>
+            </div>
+          `;
+        });
+      });
+  </script>
+</body>
